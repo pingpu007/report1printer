@@ -1,20 +1,3 @@
-# ESC/POS Printer Library
-
-This is a C library for operating thermal printers by sending ESC/POS commands.
-
-## Compiling
-
-```sh
-make
-```
-
-This will create `dist` folder, which contains `libescposprinter.a` and some public header files.
-
-## Sample Usage
-
-This sample uses `stb_image.h` from [nothings/stb](https://github.com/nothings/stb):
-
-```c
 #include <stdio.h>
 #include <string.h>
 #include "escpos_printer.h"
@@ -23,9 +6,9 @@ This sample uses `stb_image.h` from [nothings/stb](https://github.com/nothings/s
 #include "stb_image.h"
 
 // Load and convert image to grayscale
-unsigned char *load_image(const char * const image_path,
-                          int *width,
-                          int *height)
+unsigned char *load_image(const char * const image_path,int *width,int *height)
+
+	
 {
     int w, h, comp;
     unsigned char *image_data = stbi_load(image_path, &w, &h, &comp, 0);
@@ -68,7 +51,7 @@ int main(int argc, char **argv)
 
         escpos_printer_image(printer, image_data, w, h);
         escpos_printer_feed(printer, 6);
-        escpos_printer_cut(printer);
+        escpos_printer_cut(printer, 1);
 
         free(image_data);
         escpos_printer_destroy(printer);
@@ -79,4 +62,3 @@ int main(int argc, char **argv)
 
     return 0;
 }
-```
